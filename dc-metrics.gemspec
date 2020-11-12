@@ -10,9 +10,9 @@ Gem::Specification.new do |spec|
   spec.email         = ["dev.ti@deliverycenter.com"]
 
   spec.summary       = %q{Ruby implementation for DeliveryCenter's structured logging format.}
-  # spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.description   = %q{Ruby implementation for DeliveryCenter's structured logging format.}
   spec.homepage      = "https://github.com/deliverycenter/dc.libs.metrics.ruby"
-  # spec.license       = "MIT"
+  spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
