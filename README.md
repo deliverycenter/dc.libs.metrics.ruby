@@ -44,6 +44,6 @@ To install this gem onto your local machine, run `bundle exec rake install`.
 ## Documentation
 
 To generate RDOC use
-```ruby
-rdoc 'dc-metrics'
+```bash
+$ rdoc 'dc-metrics'
 ```
