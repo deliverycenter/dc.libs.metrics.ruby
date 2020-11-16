@@ -1,7 +1,8 @@
 
-lib = File.expand_path("../lib", __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "dc/metrics/version"
+# lib = File.expand_path("../lib", __FILE__)
+# $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require_relative "lib/dc/metrics/version"
+# require "dc/metrics/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "dc-metrics"
@@ -28,13 +29,22 @@ Gem::Specification.new do |spec|
   end
 
   # Specify which files should be added to the gem when it is released.
-  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
-  spec.files         = Dir.chdir(File.expand_path('..', __FILE__)) do
-    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  end
+  # If hidden files are needed change it to Dir.glob("lib/**/*", File::FNM_DOTMATCH).
+  spec.files         = Dir["lib/**/*"]
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+  # Add "CHANGELOG.md" to this list after it is added to the project
+  spec.extra_rdoc_files = Dir["README.md", "LICENSE.txt"]
+  spec.rdoc_options += [
+    "--title", "Dc Metrics - ruby implementation",
+    "--main", "README.md",
+    "--line-numbers",
+    "--inline-source",
+    "--quiet"
+  ]
+  # TODO: define lowest version of ruby
+  # spec.required_ruby_version = ">= 2.5.0"
 
   spec.add_development_dependency "bundler", "~> 2.1"
   spec.add_development_dependency "rake", "~> 10.0"
