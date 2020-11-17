@@ -30,7 +30,15 @@ Or install it yourself as:
 
 ## Usage
 
-**TODO:** Write usage instructions here
+How to configure:
+```ruby
+Dc::Metrics.configure do |config|
+  config.caller = ''
+  config.env = ''
+  config.gcp_project_id = ''
+  config.pubsub_topic_name = ''
+end
+```
 
 ## Development
 

@@ -11,4 +11,13 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.before(:all) do
+    Dc::Metrics.configure do |config|
+      config.caller            = 'application_name'
+      config.env               = 'test'
+      config.gcp_project_id    = 'project_id'
+      config.pubsub_topic_name = 'topic_name'
+    end
+  end
 end
