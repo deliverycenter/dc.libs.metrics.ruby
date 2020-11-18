@@ -18,7 +18,7 @@ module Dc
 
       def log_to_stdout(base_model)
         stdout_payload = build_stdout_payload(base_model)
-        puts stdout_payload.to_json.to_s
+        puts JSON(stdout_payload)
       end
 
       def build_stdout_payload(base_model)
