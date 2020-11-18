@@ -14,4 +14,13 @@ RSpec.describe Dc::Metrics do
       expect(Dc::Metrics).to respond_to(:reset)
     end
   end
+
+  describe 'Log interface' do
+    it 'has logging methods by log level' do
+      accepted_log_levels = [:debug, :info, :warn, :error]
+      accepted_log_levels.each do |severity|
+        expect(Dc::Metrics).to respond_to(severity)
+      end
+    end
+  end
 end
