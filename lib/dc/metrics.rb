@@ -12,23 +12,23 @@ module Dc
     end
 
     def self.debug(message, metadata)
-      # l = Logger.new
-      # l.log(:debug, message, metadata)
+      l = Logger.new
+      l.log(:debug, message, metadata)
     end
 
     def self.info(message, metadata)
-      # l = Logger.new
-      # l.log(:info, message, metadata)
+      l = Logger.new
+      l.log(:info, message, metadata)
     end
 
     def self.warn(message, metadata)
-      # l = Logger.new
-      # l.log(:warn, message, metadata)
+      l = Logger.new
+      l.log(:warn, message, metadata)
     end
 
     def self.error(message, metadata)
-      # l = Logger.new
-      # l.log(:error, message, metadata)
+      l = Logger.new
+      l.log(:error, message, metadata)
     end
 
     def self.configuration
