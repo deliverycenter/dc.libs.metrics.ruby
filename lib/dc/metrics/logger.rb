@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
-require "protos/metrics_pb"
-require "time"
-require "json"
+require 'protos/metrics_pb'
+require 'time'
+require 'json'
 
 module Dc
   module Metrics
     class Logger
-
       def log(level, message, metadata)
         base_model = build_base_model(level, message, metadata)
 
@@ -25,7 +24,7 @@ module Dc
 
       def build_stdout_payload(base_model)
         {
-          message:  base_model[:message],
+          message: base_model[:message],
           modelLog: base_model,
           severity: base_model[:level]
         }
@@ -37,7 +36,7 @@ module Dc
       end
 
       def build_metrics_payload(base_model)
-        metrics_data = base_model.reject { |k,v| (k == :message || k == :payload) }
+        metrics_data = base_model.reject { |k, _v| %i[message payload].include?(k) }
         metrics_data[:create_timestamp] = to_google_timestamp(metrics_data[:create_timestamp])
         DeliveryCenter::Logging::Integration::V1::WriteMetricsRequest.new(metrics_data)
       end
@@ -54,7 +53,7 @@ module Dc
           caller:               Metrics.configuration.caller,
           environment:          Metrics.configuration.environment,
           correlation_id:       build_correlation_id(metadata),
-          create_timestamp:     Time.now.to_i * (10 ** 9) + Time.now.nsec,
+          create_timestamp:     Time.now.to_i * (10**9) + Time.now.nsec,
           action:               metadata[:action],
           direction:            metadata[:direction],
           source_type:          metadata[:source_type],
@@ -85,7 +84,7 @@ module Dc
           metadata[:source_name],
           metadata[:ext_root_resource_id],
           metadata[:int_root_resource_id]
-        ].join("-")
+        ].join('-')
       end
     end
   end

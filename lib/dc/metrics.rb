@@ -1,15 +1,13 @@
-require "dc/metrics/version"
-require "dc/metrics/configuration"
-require "dc/metrics/logger"
+# frozen_string_literal: true
+
+require 'dc/metrics/version'
+require 'dc/metrics/configuration'
+require 'dc/metrics/logger'
 
 module Dc
   module Metrics
     class Error < StandardError; end
     # Your code goes here...
-
-    class << self
-      attr_accessor :configuration
-    end
 
     def self.debug(message, metadata)
       l = Metrics::Logger.new

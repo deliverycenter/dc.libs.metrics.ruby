@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Dc
   module Metrics
     class Configuration
