@@ -15,7 +15,7 @@ RSpec.configure do |config|
   config.before(:all) do
     Dc::Metrics.configure do |config|
       config.caller            = 'application_name'
-      config.env               = 'test'
+      config.environment       = 'test'
       config.gcp_project_id    = 'project_id'
       config.pubsub_topic_name = 'topic_name'
     end

@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 require "protos/metrics_pb"
+require "time"
+require "json"
 
 module Dc
   class Logger
 
-    def log
+    def log(level, message, metadata)
       base_model = build_base_model(level, message, metadata)
 
       log_to_stdout(base_model)
@@ -16,14 +18,15 @@ module Dc
 
     def log_to_stdout(base_model)
       stdout_payload = build_stdout_payload(base_model)
-      puts stdout_payload.to_json
+      puts 'Mandando para stdout'
+      puts stdout_payload.to_json.to_s
     end
 
     def build_stdout_payload(base_model)
       {
-        message:  base_model.message,
+        message:  base_model[:message],
         modelLog: base_model,
-        severity: base_model.level
+        severity: base_model[:level]
       }
     end
 
@@ -33,7 +36,9 @@ module Dc
     end
 
     def build_metrics_payload(base_model)
-      DeliveryCenter::Logging::Integration::V1::WriteMetricsRequest(base_model)
+      metrics_data = base_model.reject { |k,v| (k == :message || k == :payload) }
+      metrics_data[:create_timestamp] = to_google_timestamp(metrics_data[:create_timestamp])
+      DeliveryCenter::Logging::Integration::V1::WriteMetricsRequest.new(metrics_data)
     end
 
     def make_metrics_request(write_metrics_request_protob)
@@ -45,10 +50,10 @@ module Dc
       {
         level:                level.to_s.upcase,
         message:              message,
-        caller:               configuration.caller,
-        environment:          configuration.environment,
+        caller:               Metrics.configuration.caller,
+        environment:          Metrics.configuration.environment,
         correlation_id:       build_correlation_id(metadata),
-        create_timestamp:     time.to_i * (10 ** 9) + time.nsec,
+        create_timestamp:     Time.now.to_i * (10 ** 9) + Time.now.nsec,
         action:               metadata[:action],
         direction:            metadata[:direction],
         source_type:          metadata[:source_type],
@@ -64,6 +69,13 @@ module Dc
         error_code:           metadata[:error_code],
         payload:              metadata[:payload]
       }
+    end
+
+    def to_google_timestamp(nanoseconds)
+      Google::Protobuf::Timestamp.new(
+        seconds: nanoseconds / 1_000_000_000,
+        nanos: nanoseconds % 1_000_000_000
+      )
     end
 
     def build_correlation_id(metadata)

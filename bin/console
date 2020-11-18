@@ -11,4 +11,23 @@ require "dc/metrics"
 # Pry.start
 
 require "irb"
+require "byebug"
+
+Dc::Metrics.configure do |config|
+  config.caller            = 'application_name'
+  config.environment       = 'test'
+  config.gcp_project_id    = 'project_id'
+  config.pubsub_topic_name = 'topic_name'
+end
+
+Dc::Metrics.debug("Message test!", {
+  action: "CREATE_PRODUCT",
+  direction: "INCOMING",
+  source_type: "PROVIDER",
+  source_name: "MY_PROVIDER",
+  root_resource_type: "PRODUCT",
+  ext_root_resource_id: "EXT1234",
+  int_root_resource_id: "6789",
+  int_store_id: 100
+})
 IRB.start(__FILE__)
