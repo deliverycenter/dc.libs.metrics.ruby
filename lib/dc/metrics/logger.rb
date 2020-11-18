@@ -18,7 +18,6 @@ module Dc
 
       def log_to_stdout(base_model)
         stdout_payload = build_stdout_payload(base_model)
-        puts 'Mandando para stdout'
         puts stdout_payload.to_json.to_s
       end
 
@@ -42,7 +41,6 @@ module Dc
       end
 
       def make_metrics_request(write_metrics_request_protob)
-        puts 'sending to metrics'
         puts write_metrics_request_protob.to_h
       end
 
