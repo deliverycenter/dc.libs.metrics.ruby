@@ -4,12 +4,14 @@ RSpec.describe Dc::Metrics do
   end
 
   describe 'Gem configuration' do
-    it "accepts block for configuration" do
-      expect(false).to eq(true)
+    it "has configuration variables" do
+      # TODO: check behaviour of method
+      expect(Dc::Metrics).to respond_to(:configuration)
     end
 
     it "can reset configuration" do
-      expect(false).to eq(true)
+      # TODO: check behaviour of method
+      expect(Dc::Metrics).to respond_to(:reset)
     end
   end
 end
