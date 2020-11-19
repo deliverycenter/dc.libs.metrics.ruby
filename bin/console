@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-require "bundler/setup"
-require "dc/metrics"
+require 'bundler/setup'
+require 'dc/metrics'
 
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
@@ -10,5 +11,24 @@ require "dc/metrics"
 # require "pry"
 # Pry.start
 
-require "irb"
+require 'irb'
+require 'byebug'
+
+Dc::Metrics.configure do |config|
+  config.caller            = 'application_name'
+  config.environment       = 'test'
+  config.gcp_project_id    = 'project_id'
+  config.pubsub_topic_name = 'topic_name'
+end
+
+Dc::Metrics.debug('Message test!', {
+                    action: 'CREATE_PRODUCT',
+                    direction: 'INCOMING',
+                    source_type: 'PROVIDER',
+                    source_name: 'MY_PROVIDER',
+                    root_resource_type: 'PRODUCT',
+                    ext_root_resource_id: 'EXT1234',
+                    int_root_resource_id: '6789',
+                    int_store_id: 100
+                  })
 IRB.start(__FILE__)
