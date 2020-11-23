@@ -40,5 +40,30 @@ module Dc
     def self.configure
       yield(configuration)
     end
+
+    def self.add_pending_thread(t)
+      threads_to_finish << t
+    end
+
+    def self.finish_threads
+      threads_to_finish.each{ |t| t.join }
+      threads_to_finish = []
+    end
+
+    def self.clean_pending_threads
+      if threads_to_finish.size > 100
+        finish_threads
+      end
+    end
+
+    private
+
+    def self.threads_to_finish
+      @threads_to_finish ||= []
+    end
   end
+end
+
+at_exit do
+  Dc::Metrics.finish_threads
 end
