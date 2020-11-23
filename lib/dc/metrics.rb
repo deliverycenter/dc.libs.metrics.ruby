@@ -10,23 +10,23 @@ module Dc
     # Your code goes here...
 
     def self.debug(message, metadata)
-      l = Metrics::Logger.new
-      l.log(:debug, message, metadata)
+      logger.log(:debug, message, metadata)
     end
 
     def self.info(message, metadata)
-      l = Metrics::Logger.new
-      l.log(:info, message, metadata)
+      logger.log(:info, message, metadata)
     end
 
     def self.warn(message, metadata)
-      l = Metrics::Logger.new
-      l.log(:warn, message, metadata)
+      logger.log(:warn, message, metadata)
     end
 
     def self.error(message, metadata)
-      l = Metrics::Logger.new
-      l.log(:error, message, metadata)
+      logger.log(:error, message, metadata)
+    end
+
+    def self.logger
+      @logger ||= Metrics::Logger.new
     end
 
     def self.configuration
