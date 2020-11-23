@@ -37,6 +37,8 @@ Dc::Metrics.configure do |config|
   config.environment       = 'test'
   config.gcp_project_id    = 'project_id'
   config.pubsub_topic_name = 'topic_name'
+  # Path to you local GCP credentials file if needed(mostly for local testing).
+  config.gcp_credentials_path = 'path/to/file'
 end
 ```
 

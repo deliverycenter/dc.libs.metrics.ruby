@@ -15,10 +15,12 @@ require 'irb'
 require 'byebug'
 
 Dc::Metrics.configure do |config|
-  config.caller            = 'application_name'
-  config.environment       = 'test'
-  config.gcp_project_id    = 'project_id'
-  config.pubsub_topic_name = 'topic_name'
+  config.caller               = 'gem_development'
+  config.environment          = 'test'
+  config.gcp_project_id       = 'deliverycenter-stag'
+  config.pubsub_topic_name    = 'dc-logging-metrics'
+  # Path to you local credentials file if needed.
+  config.gcp_credentials_path = 'path/to/file'
 end
 
 Dc::Metrics.debug('Message test!', {
@@ -31,4 +33,5 @@ Dc::Metrics.debug('Message test!', {
                     int_root_resource_id: '6789',
                     int_store_id: 100
                   })
+
 IRB.start(__FILE__)
