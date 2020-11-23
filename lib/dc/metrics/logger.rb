@@ -1,17 +1,23 @@
 # frozen_string_literal: true
 
+require 'dc/metrics/pub_sub'
+require 'json'
 require 'protos/metrics_pb'
 require 'time'
-require 'json'
 
 module Dc
   module Metrics
     class Logger
       def log(level, message, metadata)
-        base_model = build_base_model(level, message, metadata)
+        begin
+          base_model = build_base_model(level, message, metadata)
 
-        log_to_stdout(base_model)
-        log_to_metrics(base_model)
+          log_to_stdout(base_model)
+          log_to_metrics(base_model)
+        rescue StandardError => e
+          puts "[Error][Dc::Metrics] #{e.message}"      if e.message != nil
+          puts "[Error][Dc::Metrics] #{e.backtrace[0]}" if e.backtrace[0] != nil
+        end
       end
 
       private
@@ -41,7 +47,7 @@ module Dc
       end
 
       def make_metrics_request(write_metrics_request_protob)
-        puts write_metrics_request_protob.to_h
+        Metrics::PubSub.new.publish(write_metrics_request_protob)
       end
 
       def build_base_model(level, message, metadata)
