@@ -10,6 +10,8 @@ module Dc
     class Logger
       def log(level, message, metadata)
         begin
+          return if Metrics.configuration.disabled?
+
           base_model = build_base_model(level, message, metadata)
 
           log_to_stdout(base_model)
