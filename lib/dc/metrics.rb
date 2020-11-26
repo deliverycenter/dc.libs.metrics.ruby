@@ -55,6 +55,11 @@ module Dc
         finish_threads
       end
     end
+    
+    def self.disable
+      @configuration = Configuration.new
+      @configuration.disable
+    end
 
     private
 

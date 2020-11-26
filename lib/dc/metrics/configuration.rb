@@ -11,6 +11,15 @@ module Dc
         @gcp_project_id = nil
         @pubsub_topic_name = nil
         @gcp_credentials_path = nil
+        @disabled = false
+      end
+
+      def disable
+        @disabled = true
+      end
+
+      def disabled?
+        @disabled
       end
     end
   end
