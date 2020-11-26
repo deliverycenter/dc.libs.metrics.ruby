@@ -5,7 +5,7 @@ require_relative 'lib/dc/metrics/version'
 Gem::Specification.new do |spec|
   spec.name          = 'dc-metrics'
   spec.version       = Dc::Metrics::VERSION
-  spec.authors       = ['Lucas Braz']
+  spec.authors       = ['Lucas Braz', 'Thiago May']
   spec.email         = ['dev.ti@deliverycenter.com']
 
   spec.summary       = "Ruby implementation for DeliveryCenter's structured logging format."
